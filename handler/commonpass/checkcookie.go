@@ -15,7 +15,7 @@ func CheckCookie(c *gin.Context) (string, bool) {
 		return "", false
 	}
 	sqldb := sqls.SQLDB
-	if err := sqldb.Db.Where("value = ?", val).Find(cookie).Error; err != nil {
+	if sqldb.Db.Where("value = ?", val).First(cookie); cookie.Account == "" {
 		return "", false
 	} else {
 		return cookie.Account, true
